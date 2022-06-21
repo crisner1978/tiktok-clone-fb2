@@ -3,18 +3,19 @@ import { useDocument } from "react-firebase-hooks/firestore";
 
 export default function FollowButton({ post }) {
   const [user] = useAuthUser()
-  const followingRef = user.ref.collection('following').doc(post.user.uid)
-  const followerRef = post.ref.collection("followers").doc(user.uid)
+  
+  const followingRef = user?.ref.collection('following').doc(post.user.uid)
+  const followerRef = post.ref?.collection("followers").doc(user.uid)
   const [followingDoc] = useDocument(followingRef)
 
   function addFollow() {
-    followingRef.set(post.user)
-    followerRef.set(user)
+    followingRef?.set(post.user)
+    followerRef?.set(user)
   }
 
   function removeFollow() {
-    followingRef.delete(post.user)
-    followerRef.delete(user)
+    followingRef?.delete(post.user)
+    followerRef?.delete(user)
   }
 
   return (

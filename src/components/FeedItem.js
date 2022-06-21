@@ -1,3 +1,4 @@
+import useAuthUser from "context/userContext";
 import useVideo from "hooks/useVideo";
 import MusicIcon from "icons/MusicIcon";
 import { formatDraftText } from "lib/draft-utils";
@@ -7,10 +8,12 @@ import FollowButton from "./FollowButton";
 import LikeButton from "./LikeButton";
 import MessagesButton from "./MessagesButton";
 import MuteButton from "./MuteButton";
+import MyPostTag from "./MyPostTag";
 import PauseButton from "./PauseButton";
 import ShareButton from "./ShareButton";
 
 export default function FeedItem({ post }) {
+  const [user] = useAuthUser()
   console.log("post", post);
   return (
     <div className="fi-container">
@@ -34,7 +37,7 @@ export default function FeedItem({ post }) {
             __html: formatDraftText(post.caption),
           }}
         />
-        <FollowButton post={post} />
+        {user.username !== post.user.username ? <FollowButton post={post} /> : <MyPostTag />}
         <div className="fi-music-container">
           <h4>
             <div className="fi-music">

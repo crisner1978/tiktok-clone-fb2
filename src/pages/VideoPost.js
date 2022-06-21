@@ -3,6 +3,7 @@ import FollowButton from "components/FollowButton";
 import LikeButton from "components/LikeButton";
 import Loader from "components/Loader";
 import MessagesButton from "components/MessagesButton";
+import MyPostTag from "components/MyPostTag";
 import useAuthUser from "context/userContext";
 import { EditorState } from "draft-js";
 import useVideo from "hooks/useVideo";
@@ -19,7 +20,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 export default function VideoPost() {
   const { postId } = useParams();
 
-  const [postsCol, loading, error] = useCollection(
+  const [postsCol, loading] = useCollection(
     db.collectionGroup("posts").where("postId", "==", postId).limit(1)
   );
 
@@ -70,12 +71,16 @@ function VideoPostPlayer({ post }) {
 }
 
 function VideoPostInfo({ post }) {
+  const [user] = useAuthUser()
+
   function datePosted() {
     const date = new Date(post.timestamp.toDate().toString());
     const month = date.getMonth() + 1;
     const day = date.getDate();
     return `${month}-${day}`;
   }
+
+  console.log("caption",formatDraftText(post.caption))
 
   return (
     <>
@@ -100,7 +105,7 @@ function VideoPostInfo({ post }) {
               </h2>
             </Link>
           </div>
-          <FollowButton post={post} />
+          {user.username !== post.user.username ? <FollowButton post={post} /> : <MyPostTag />}
         </div>
       </div>
       <div className="vp-info-caption-container">

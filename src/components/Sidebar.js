@@ -51,20 +51,34 @@ function SidebarSuggested() {
     ...doc.data(),
   }));
 
-  console.log(suggested);
-
-  if (loading || suggestedCol.empty) return null;
-
-  return (
-    <div className="sb-suggested">
-      <p className="sb-suggested-title">Suggested accounts</p>
-      <div className="sb-suggested-list">
-        {suggested.map((user) => (
-          <SidebarItem key={user.id} user={user} />
-        ))}
-      </div>
-    </div>
+  const [followingCol] = useCollection(
+    user?.ref.collection("following")
   );
+
+  const following = followingCol?.docs.map((doc) => ({
+    id: doc.id,
+    ref: doc.ref,
+    ...doc.data(),
+  }));
+
+  let filteredSuggestions = suggested?.filter((array) => {
+    return following?.filter((newArr) => {
+      return array.id === newArr.id
+    }).length === 0
+  })
+
+if (loading || suggestedCol.empty || filteredSuggestions.length === 0) return null;
+
+return (
+  <div className="sb-suggested">
+    <p className="sb-suggested-title">Suggested accounts</p>
+    <div className="sb-suggested-list">
+      {filteredSuggestions.map((user) => (
+        <SidebarItem key={user.id} user={user} />
+      ))}
+    </div>
+  </div>
+);
 }
 
 function SidebarFollowing() {
@@ -80,6 +94,7 @@ function SidebarFollowing() {
   }));
 
   if (loading || followingCol.empty) return null;
+
   return (
     <div className="sb-suggested">
       <p className="sb-suggested-title">Following accounts</p>
@@ -93,7 +108,6 @@ function SidebarFollowing() {
 }
 
 function SidebarItem({ user }) {
-  console.log("user", user);
   return (
     <Link to={`/${user.username}`} className="sb-item-link">
       <div className="sb-item-avatar-container">

@@ -247,6 +247,26 @@
   @extend .tiktok-btn-pc-line;
 }
 
+// components/MyPostTag.js
+.mp-container {
+  @extend .jsx-1253735330;
+  @extend .item-follow-wrapper;
+}
+
+.mp-wrapper {
+  @extend .follow-button-wrap;
+  @extend .button;
+}
+
+.ufb {
+  @extend .follow-button;
+  @extend .jsx-551524688;
+  @extend .tiktok-btn-pc;
+  @extend .tiktok-btn-pc-medium;
+  @extend .tiktok-btn-pc-line;
+}
+
+
 // components/LikeButton.js
 .like-button,
 .messages-button {
@@ -1268,6 +1288,8 @@
 
 .p-video-post-like-container {
   @extend .jsx-3239500515;
+  display: flex;
+  align-items: center;
 }
 
 .p-video-post-footer {

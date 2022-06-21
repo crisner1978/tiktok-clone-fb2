@@ -27,7 +27,7 @@ export default function SignUp({ user }) {
   }, [user]);
 
   useEffect(() => {
-    const u = removeWhiteSpace(username);
+    const u = removeWhiteSpace(username.toLowerCase());
 
     async function checkUsername() {
       if (u.length >= 3 && u.length <= 20) {
@@ -54,7 +54,7 @@ export default function SignUp({ user }) {
     }
 
     const { uid, displayName, photoURL } = user
-    const u = `@${removeWhiteSpace(username)}`
+    const u = `@${removeWhiteSpace(username.toLowerCase())}`
 
     try {
       setLoading(true)
