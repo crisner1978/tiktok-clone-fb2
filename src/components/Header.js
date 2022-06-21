@@ -17,7 +17,7 @@ export default function Header() {
             <img src="/tiktok-logo.svg" alt="Tiktok" className="h-icon" />
           </Link>
         </div>
-        <SearchBar></SearchBar>
+        <SearchBar />
 
         <div className="h-menu-right">
           <Link to="/upload" className="h-menu-upload">
