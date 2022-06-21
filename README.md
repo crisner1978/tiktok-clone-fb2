@@ -1,6 +1,5 @@
-## TODO
+## Tiktok React JS Clone Project
 
-<!-- 0. Readd styles from Github repo (mobile breakpoints broken) -->
 
 <!-- 1. Finish creating classes -->
 
